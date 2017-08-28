@@ -1,0 +1,15 @@
+E:\Study\Work\EmpeekTest\EmpeekTest\EmpeekTest.Model\bin\Debug\EmpeekTest.Model.dll.config
+E:\Study\Work\EmpeekTest\EmpeekTest\EmpeekTest.Model\bin\Debug\EmpeekTest.Model.dll
+E:\Study\Work\EmpeekTest\EmpeekTest\EmpeekTest.Model\bin\Debug\EmpeekTest.Model.pdb
+E:\Study\Work\EmpeekTest\EmpeekTest\EmpeekTest.Model\bin\Debug\EntityFramework.dll
+E:\Study\Work\EmpeekTest\EmpeekTest\EmpeekTest.Model\bin\Debug\EntityFramework.SqlServer.dll
+E:\Study\Work\EmpeekTest\EmpeekTest\EmpeekTest.Model\bin\Debug\System.Data.SQLite.dll
+E:\Study\Work\EmpeekTest\EmpeekTest\EmpeekTest.Model\bin\Debug\System.Data.SQLite.EF6.dll
+E:\Study\Work\EmpeekTest\EmpeekTest\EmpeekTest.Model\bin\Debug\System.Data.SQLite.Linq.dll
+E:\Study\Work\EmpeekTest\EmpeekTest\EmpeekTest.Model\bin\Debug\EntityFramework.xml
+E:\Study\Work\EmpeekTest\EmpeekTest\EmpeekTest.Model\bin\Debug\EntityFramework.SqlServer.xml
+E:\Study\Work\EmpeekTest\EmpeekTest\EmpeekTest.Model\bin\Debug\System.Data.SQLite.xml
+E:\Study\Work\EmpeekTest\EmpeekTest\EmpeekTest.Model\bin\Debug\System.Data.SQLite.dll.config
+E:\Study\Work\EmpeekTest\EmpeekTest\EmpeekTest.Model\obj\Debug\EmpeekTest.Model.csprojResolveAssemblyReference.cache
+E:\Study\Work\EmpeekTest\EmpeekTest\EmpeekTest.Model\obj\Debug\EmpeekTest.Model.dll
+E:\Study\Work\EmpeekTest\EmpeekTest\EmpeekTest.Model\obj\Debug\EmpeekTest.Model.pdb
