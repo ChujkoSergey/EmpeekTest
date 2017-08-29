@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="EmpeekTest.Test.ItemsTest.Select" /><Add Test="EmpeekTest.Test.ItemsTest.Insert" /><Add Test="EmpeekTest.Test.ItemsTest.SelectWhere" /><Add Test="EmpeekTest.Test.ItemsTest.Update" /><Add Test="EmpeekTest.Test.ItemsTest.Delete" /></Playlist>
