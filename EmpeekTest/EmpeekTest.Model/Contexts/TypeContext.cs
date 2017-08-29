@@ -5,6 +5,7 @@
     using System.Linq;
     using EmpeekTest.Model.Interfaces;
     using System.Linq.Expressions;
+    using EmpeekTest.Model.Messages; 
 
     public class TypeContext : IDbContext<Models.Type>
     {
@@ -69,6 +70,12 @@
                 item.Name = newItem.Name;
             }
             return _context.SaveChanges() != 0;
+        }
+
+        public IEnumerable<StatMessage> GetTypeStats()
+        {
+            var temp = _context.Items.GroupBy(x => x.TypeId).Select(value => new { Type = value.Key, Count = value.Count() });
+            
         }
 
         #endregion

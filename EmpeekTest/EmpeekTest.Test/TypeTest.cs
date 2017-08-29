@@ -5,6 +5,8 @@ namespace EmpeekTest.Test
     using EmpeekTest.Model.Contexts;
     using System.Diagnostics;
     using System.Collections.Generic;
+    using EmpeekTest.Model.Messages;
+    using System.Linq;
 
     [TestClass]
     public class TypeTest
@@ -64,6 +66,17 @@ namespace EmpeekTest.Test
             foreach (var item in temp)
             {
                 Debug.WriteLine($"Id: {item.Id}, Name: {item.Name}");
+            }
+        }
+
+        [TestMethod]
+        public void TypesStat()
+        {
+            var temp = ((TypeContext)(MainContext.Instance.Type)).GetTypeStats();
+            Assert.IsTrue(temp.Count() != 0);
+            foreach(var item in temp)
+            {
+                Debug.WriteLine($"Type: {item.Type}, Count: {item.Count}");
             }
         }
     }

@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EmpeekTest</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container" ng-app="mainApp" ng-controller="mainController" id="main-container">
+        <form class="container"  id="input-container">
+                <div class="form-group col-xs-8">
+                    <input class="form-control" ng-model="newItemName" placeholder="Name" name="newItemName" required/>
+                </div>
+                <div class="form-group col-xs-2">
+                    <input class="form-control" ng-model="newItemType" placeholder="Type" name="newItemType"  required/>
+                </div>
+                <div class="form-group col-xs-2">
+                    <button class="btn-default form-control" ng-click="AddNewItem()">Add</button>
+                </div>
+        </form>
+            <table class="table table-striped table-bordered table-responsive" id="itemsTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in items track by $index">
+                        <td class="col-xs-8">{{item.Name}}</td>
+                        <td class="col-xs-2">{{item.TypeId}}</td>
+                        <td class="col-xs-8"><button class="btn">Edit</button> <button class="btn">Delete</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="center-block">
+                <ul  id="pages-list">
+                    <li class="" ng-repeat="number in count track by $index"><a href=#>{{number}}</a></li>
+                </ul>
+            </div>
+    </div>
+
+    <div class="container" ng-app="statApp" ng-controller="statController" id="stat-container">
+        <table class="table table-striped table-bordered table-responsive" id="typesTable">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="type in types track by $index">
+                    <td class="col-xs-10">{{item.Type}}</td>
+                    <td class="col-xs-2">{{item.Count}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="center-block">
+            <ul id="pages-list">
+                <li class="" ng-repeat="number in count track by $index"><a href=#>{{number}}</a></li>
+            </ul>
+        </div>
+    </div>
+    <script src="js/my/script.js"></script>
+</body>
+</html>

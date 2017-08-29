@@ -66,6 +66,9 @@
     <Compile Include="Interfaces\IDbContext.cs" />
     <Compile Include="Interfaces\IMainDbContext.cs" />
     <Compile Include="ItemsDbModel.cs" />
+    <Compile Include="Messages\NewItemMessage.cs" />
+    <Compile Include="Messages\ResultMessage.cs" />
+    <Compile Include="Messages\StatMessage.cs" />
     <Compile Include="Models\Items.cs" />
     <Compile Include="Models\Type.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
