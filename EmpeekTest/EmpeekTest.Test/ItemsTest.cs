@@ -4,6 +4,7 @@
     using EmpeekTest.Model.Contexts;
     using System.Diagnostics;
     using System.Collections.Generic;
+    using System.Linq;
 
     [TestClass]
     public class ItemsTest
@@ -63,6 +64,17 @@
             foreach (var item in temp)
             {
                 Debug.WriteLine($"Id: {item.Id}, Name: {item.Name}, Type: {item.TypeId}");
+            }
+        }
+
+        [TestMethod]
+        public void GetFirstPage()
+        {
+            var temp = ((ItemsContext)MainContext.Instance.Items).GetItemInfoPage(1, 4);
+            Assert.IsTrue(temp.Count() != 0);
+            foreach (var item in temp)
+            {
+                Debug.WriteLine($"Id: {item.Id}, Name: {item.Name}, Type: {item.Type}");
             }
         }
     }

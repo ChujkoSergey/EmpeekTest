@@ -6,6 +6,7 @@
     using System.Linq.Expressions;
     using EmpeekTest.Model.Interfaces;
     using EmpeekTest.Model.Models;
+    using EmpeekTest.Model.Messages;
 
     public class ItemsContext : IDbContext<Items>
     {
@@ -70,6 +71,14 @@
                 item.TypeId = newItem.TypeId;
             }
             return _context.SaveChanges() != 0;
+        }
+
+        public IEnumerable<ItemsInfoMessage> GetItemInfoPage(int page, int count)
+        {
+            var tempItems = _context.Items.ToList().Skip((page - 1) * count).Take(count);
+            return from items in tempItems
+                   join type in _context.Type on items.TypeId equals type.Id
+                   select new ItemsInfoMessage() { Id = items.Id, Name = items.Name, Type = type.Name };
         }
 
         #endregion

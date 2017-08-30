@@ -13,11 +13,11 @@ namespace EmpeekTest.Application.Controllers
     [RoutePrefix("api/main")]
     public class MainController : ApiController
     {
-        [HttpGet]
+        [HttpPost]
         [Route("")]
-        public IEnumerable<Items> TestMethod()
+        public IEnumerable<ItemsInfoMessage> TestMethod(InfoRequestMessage request)
         {
-            return MainContext.Instance.Items.GetAll();
+            return ((ItemsContext)MainContext.Instance.Items).GetItemInfoPage(request.Page, request.Count);
         }
 
         [HttpPost]
@@ -51,6 +51,79 @@ namespace EmpeekTest.Application.Controllers
                 {
                     ResultCode = 0,
                     Message = "Can't insert new item"
+                };
+            }
+            catch(Exception e)
+            {
+                return new ResultMessage()
+                {
+                    ResultCode = -1,
+                    Message = $"Internal server error: {e.Message}"
+                };
+            }
+        }
+
+        [HttpPost]
+        [Route("edit")]
+        public ResultMessage EditItem(ItemsInfoMessage editedItem)
+        {
+            try
+            {
+                var type = MainContext.Instance.Type.GetBy(x => x.Name == editedItem.Type)?.ToList()[0];
+                if (type == null)
+                {
+                    if (!MainContext.Instance.Type.Insert(new Model.Models.Type() { Name = editedItem.Type }))
+                    {
+                        return new ResultMessage()
+                        {
+                            ResultCode = 0,
+                            Message = "Can't insert new type"
+                        };
+                    }
+                    type = MainContext.Instance.Type.GetBy(x => x.Name == editedItem.Type)?.ToList()[0];
+                }
+                if (MainContext.Instance.Items.Update(new Items() { Name = editedItem.Name, TypeId = type.Id }, x => x.Id == editedItem.Id))
+                {
+                    return new ResultMessage()
+                    {
+                        ResultCode = 1,
+                        Message = "Item was edited"
+                    };
+                }
+                return new ResultMessage()
+                {
+                    ResultCode = 0,
+                    Message = "Can't edit this item"
+                };
+            }
+            catch(Exception e)
+            {
+                return new ResultMessage()
+                {
+                    ResultCode = -1,
+                    Message = $"Internal server error: {e.Message}"
+                };
+            }
+        }
+
+        [HttpPost]
+        [Route("delete")]
+        public ResultMessage DeleteItem(DeleteItemMessage deleteRequest)
+        {
+            try
+            {
+                if(MainContext.Instance.Items.Delete(x => x.Id == deleteRequest.Id))
+                {
+                    return new ResultMessage()
+                    {
+                        ResultCode = 1,
+                        Message = "Item was deleted"
+                    };
+                }
+                return new ResultMessage()
+                {
+                    ResultCode = 0,
+                    Message = "Can't delete this item"
                 };
             }
             catch(Exception e)

@@ -74,8 +74,13 @@
 
         public IEnumerable<StatMessage> GetTypeStats()
         {
-            var temp = _context.Items.GroupBy(x => x.TypeId).Select(value => new { Type = value.Key, Count = value.Count() });
-            
+            return from type in _context.Type
+                   join items in _context.Items on type.Id equals items.TypeId into result
+                   select new StatMessage() { Type = type.Name, Count = result.Count() };
+            //return from items in _context.Items
+            //       group items by items.TypeId into result
+            //       join type in _context.Type on result.FirstOrDefault().TypeId equals type.Id
+            //       select new StatMessage() { Type = type.Name, Count = }
         }
 
         #endregion
