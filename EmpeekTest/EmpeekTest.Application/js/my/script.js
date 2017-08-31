@@ -39,18 +39,20 @@ app.controller('mainController', function ($scope, $http) {
     RefreshTable(true);
 
     $scope.AddNewItem = function () {
-        $http.post("api/main/add", JSON.stringify({ Name: $scope.newItemName, Type: $scope.newItemType }))
-            .then(function (response) {
-                var temp = response.data;
-                if (temp.ResultCode != 1) {
-                    alert(temp.Message);
-                }
-                else {
-                    RefreshTable(true);
-                    $scope.newItemName = "";
-                    $scope.newItemType = "";
-                }
-            });
+        if ($scope.newItemName != "" && $scope.newItemType != "" && $scope.newItemName != null && $scope.newItemType) {
+            $http.post("api/main/add", JSON.stringify({ Name: $scope.newItemName, Type: $scope.newItemType }))
+                .then(function (response) {
+                    var temp = response.data;
+                    if (temp.ResultCode != 1) {
+                        alert(temp.Message);
+                    }
+                    else {
+                        RefreshTable(true);
+                        $scope.newItemName = "";
+                        $scope.newItemType = "";
+                    }
+                });
+        }
     };
 
     $scope.DeleteItem = function (id) {
@@ -67,25 +69,27 @@ app.controller('mainController', function ($scope, $http) {
     };
 
     $scope.EditItem = function (id) {
-        var temp = $scope.items.find(function (item) {return item.Id == id;});
-        $scope.editItemName = temp.Name;
-        $scope.editItemType = temp.Type;
-        $scope.selectedItem = id;
-        $scope.showEdit = true;
+            var temp = $scope.items.find(function (item) { return item.Id == id; });
+            $scope.editItemName = temp.Name;
+            $scope.editItemType = temp.Type;
+            $scope.selectedItem = id;
+            $scope.showEdit = true;
     };
 
     $scope.Edit = function (id) {
-        $http.post("api/main/edit", JSON.stringify({ Id: id, Name: $scope.editItemName, Type: $scope.editItemType }))
-            .then(function (response) {
-                var temp = response.data;
-                if (temp.ResultCode != 1) {
-                    alert(temp.Message);
-                }
-                else {
-                    RefreshTable(false);
-                    $scope.showEdit = false;
-                }
-            });
+        if ($scope.editItemName != "" && $scope.editItemType != "" && $scope.editItemName != null && $scope.editItemType != null) {
+            $http.post("api/main/edit", JSON.stringify({ Id: id, Name: $scope.editItemName, Type: $scope.editItemType }))
+                .then(function (response) {
+                    var temp = response.data;
+                    if (temp.ResultCode != 1) {
+                        alert(temp.Message);
+                    }
+                    else {
+                        RefreshTable(false);
+                        $scope.showEdit = false;
+                    }
+                });
+        }
     };
 
     $scope.SwitchPage = function (page) {
