@@ -21,6 +21,29 @@ namespace EmpeekTest.Application.Controllers
         }
 
         [HttpPost]
+        [Route("pages")]
+        public ResultMessage GetCountOfPages(InfoRequestMessage request)
+        {
+            try
+            {
+                var count = MainContext.Instance.Items.GetAll().Count();
+                var temp = count % request.Count;
+                return new ResultMessage()
+                {
+                    ResultCode = (temp != 0) ? ((count / request.Count) + 1) : (count / request.Count)
+                };
+            }
+            catch(Exception e)
+            {
+                return new ResultMessage()
+                {
+                    ResultCode = -1,
+                    Message = $"Internal server error: {e.Message}"
+                };
+            }
+        }
+
+        [HttpPost]
         [Route("add")]
         public ResultMessage AddItem(NewItemMessage newItem)
         {

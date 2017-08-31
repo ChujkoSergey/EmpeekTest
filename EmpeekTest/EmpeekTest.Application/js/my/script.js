@@ -2,27 +2,41 @@
 app.controller('mainController', function ($scope, $http) {
     $scope.itemsCount = 4;
     $scope.currentPage = 1;
+    $scope.count = new Array();
     $scope.showEdit = false;
-    function RefreshTable(page, count) {
-        $http.post("api/main", JSON.stringify({ Page: page, Count: count}))
+    function RefreshTable(refreshPages) {
+        $http.post("api/main", JSON.stringify({ Page: $scope.currentPage, Count: $scope.itemsCount}))
             .then(function (response) {
                 $scope.items = response.data;
-                var temp = response.data.length % 3;
-                if (temp < 2) {
-                    $scope.count = new Array(Math.round(response.data.length / 3) + 1);
+                if (refreshPages)
+                {
+                    $http.post("api/main/pages", JSON.stringify({ Count: $scope.itemsCount }))
+                        .then(function (response) {
+                            if (response.data.ResultCode < 0) {
+                                alert(response.data.Message);
+                                return;
+                            }
+                            else
+                            {
+                                $scope.count = new Array();
+                                for (var i = 0; i < response.data.ResultCode; i++) {
+                                    $scope.count.push(i + 1);
+                                }
+                            }
+                        });
                 }
-                else {
-                    $scope.count = new Array(Math.round(response.data.length / 3));
-                }
-                var length = $scope.count.length;
-                for (var i = 1; i <= length; i++) {
-                    $scope.count.push(i);
-                }
-
+                $("#pages-list li a").each(function () {
+                    if (parseInt($(this).text()) == $scope.currentPage) {
+                        $(this).css("color", "red");
+                    }
+                    else {
+                        $(this).css("color", "#428bca");
+                    }
+                });
             });
     }
 
-    RefreshTable($scope.currentPage, $scope.itemsCount);
+    RefreshTable(true);
 
     $scope.AddNewItem = function () {
         $http.post("api/main/add", JSON.stringify({ Name: $scope.newItemName, Type: $scope.newItemType }))
@@ -32,7 +46,7 @@ app.controller('mainController', function ($scope, $http) {
                     alert(temp.Message);
                 }
                 else {
-                    RefreshTable($scope.currentPage, $scope.itemsCount);
+                    RefreshTable(true);
                     $scope.newItemName = "";
                     $scope.newItemType = "";
                 }
@@ -47,7 +61,7 @@ app.controller('mainController', function ($scope, $http) {
                     alert(temp.Message);
                 }
                 else {
-                    RefreshTable($scope.currentPage, $scope.itemsCount);
+                    RefreshTable(true);
                 }
             });
     };
@@ -68,11 +82,16 @@ app.controller('mainController', function ($scope, $http) {
                     alert(temp.Message);
                 }
                 else {
-                    RefreshTable($scope.currentPage, $scope.itemsCount);
+                    RefreshTable(false);
                     $scope.showEdit = false;
                 }
             });
     };
+
+    $scope.SwitchPage = function (page) {
+        $scope.currentPage = page;
+        RefreshTable(false);
+    }
 
 });
 
@@ -84,9 +103,35 @@ statApp.controller('statController', function ($scope, $http) {
         $http.post("api/stat", JSON.stringify({ Page: $scope.currentPage, Count: $scope.itemsCount }))
             .then(function (response) {
                 $scope.types = response.data;
+                $http.post("api/stat/pages", JSON.stringify({ Count: $scope.itemsCount }))
+                    .then(function (response) {
+                        if (response.data.ResultCode < 0) {
+                            alert(response.data.Message);
+                            return;
+                        }
+                        else {
+                            $scope.count = new Array();
+                            for (var i = 0; i < response.data.ResultCode; i++) {
+                                $scope.count.push(i + 1);
+                            }
+                        }
+                    });
+                $("#pages-list li a").each(function () {
+                    if (parseInt($(this).text()) == $scope.currentPage) {
+                        $(this).css("color", "red");
+                    }
+                    else {
+                        $(this).css("color", "#428bca");
+                    }
+                });
             });
     }
     $scope.RefreshStatTable = Refresh;
+
+    $scope.SwitchPage = function (page) {
+        $scope.currentPage = page;
+        Refresh();
+    }
     
 });
 

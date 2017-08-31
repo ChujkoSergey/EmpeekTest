@@ -19,5 +19,29 @@ namespace EmpeekTest.Application.Controllers
         {
             return ((TypeContext)(MainContext.Instance.Type)).GetTypeStats(request);
         }
+
+
+        [HttpPost]
+        [Route("pages")]
+        public ResultMessage GetCountOfPages(InfoRequestMessage request)
+        {
+            try
+            {
+                var count = MainContext.Instance.Type.GetAll().Count();
+                var temp = count % request.Count;
+                return new ResultMessage()
+                {
+                    ResultCode = (temp != 0) ? ((count / request.Count) + 1) : (count / request.Count)
+                };
+            }
+            catch (Exception e)
+            {
+                return new ResultMessage()
+                {
+                    ResultCode = -1,
+                    Message = $"Internal server error: {e.Message}"
+                };
+            }
+        }
     }
 }

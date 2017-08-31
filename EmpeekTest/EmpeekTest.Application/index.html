@@ -53,7 +53,7 @@
             </table>
             <div class="center-block">
                 <ul  id="pages-list">
-                    <li class="" ng-repeat="number in count track by $index"><a href=#>{{number}}</a></li>
+                    <li class="" ng-repeat="number in count track by $index"><a ng-click="SwitchPage(number)" href=#>{{number}}</a></li>
                 </ul>
             </div>
     </div>
@@ -75,7 +75,7 @@
         </table>
         <div class="center-block">
             <ul id="pages-list">
-                <li class="" ng-repeat="number in count track by $index"><a href=#>{{number}}</a></li>
+                <li class="" ng-repeat="number in count track by $index"><a ng-click="SwitchPage(number)" href=#>{{number}}</a></li>
             </ul>
         </div>
     </div>
