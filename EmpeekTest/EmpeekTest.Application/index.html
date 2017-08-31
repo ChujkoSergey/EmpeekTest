@@ -8,7 +8,11 @@
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="container" ng-app="mainApp" ng-controller="mainController" id="main-container">
+    <nav class="container" id="navigation">
+        <button class="btn btn-default nav-button" id="nav-items">Items</button>
+        <button class="btn btn-default nav-button" id="nav-stat">Item Statistic</button>
+    </nav>
+    <div class="container items-container" ng-app="mainApp" ng-controller="mainController" id="main-container">
         <form class="container" id="input-container">
                 <div class="form-group col-xs-8">
                     <input class="form-control" ng-model="newItemName" placeholder="Name" name="newItemName" required/>
@@ -54,7 +58,7 @@
             </div>
     </div>
 
-    <div class="container" ng-app="statApp" ng-controller="statController" id="stat-container">
+    <div class="container stat-container"  ng-app="statApp" ng-controller="statController" id="stat-container">
         <table class="table table-striped table-bordered table-responsive" id="typesTable">
             <thead>
                 <tr>
@@ -75,6 +79,9 @@
             </ul>
         </div>
     </div>
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
     <script src="js/my/script.js"></script>
+    <script src="js/my/navigation.js"></script>
+
 </body>
 </html>

@@ -13,11 +13,11 @@ namespace EmpeekTest.Application.Controllers
     [RoutePrefix("api/stat")]
     public class StatController : ApiController
     {
-        [HttpGet]
+        [HttpPost]
         [Route("")]
-        public IEnumerable<StatMessage> GetTypeStats()
+        public IEnumerable<StatMessage> GetTypeStats(InfoRequestMessage request)
         {
-            return ((TypeContext)(MainContext.Instance.Type)).GetTypeStats();
+            return ((TypeContext)(MainContext.Instance.Type)).GetTypeStats(request);
         }
     }
 }

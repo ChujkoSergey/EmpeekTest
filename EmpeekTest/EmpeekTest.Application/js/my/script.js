@@ -33,6 +33,8 @@ app.controller('mainController', function ($scope, $http) {
                 }
                 else {
                     RefreshTable($scope.currentPage, $scope.itemsCount);
+                    $scope.newItemName = "";
+                    $scope.newItemType = "";
                 }
             });
     };
@@ -76,11 +78,16 @@ app.controller('mainController', function ($scope, $http) {
 
 var statApp = angular.module('statApp', []);
 statApp.controller('statController', function ($scope, $http) {
-    $scope.types = { Type:"123", Count: 1 };
-    $http.get("api/stat")
-        .then(function (response) {
-            $scope.types = response.data;
-        });
+    $scope.currentPage = 1;
+    $scope.itemsCount = 3;
+    function Refresh() {
+        $http.post("api/stat", JSON.stringify({ Page: $scope.currentPage, Count: $scope.itemsCount }))
+            .then(function (response) {
+                $scope.types = response.data;
+            });
+    }
+    $scope.RefreshStatTable = Refresh;
+    
 });
 
 angular.bootstrap(document.getElementById("stat-container"), ['statApp']);

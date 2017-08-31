@@ -1,32 +1,15 @@
-﻿/** {
-    padding: 0;
-    margin: 0;
+﻿#navigation button{
+    margin:5px;
 }
 
-body {
-    font-family: 'Verdana', sans-serif;
-    min-width: 320px;
-    font-size: 16px;
-    height: 100%;
+#main-container{
+    border: 2px solid black;
 }
 
-
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-    padding: 5px;
+#stat-container{
+    border: 2px solid black;
+    padding: 10px;
 }
-table tr:nth-child(odd) {
-    background-color: #f1f1f1;
-}
-
-table tr:nth-child(even) {
-    background-color: #ffffff;
-}
-
-table thead tr th {
-    background-color: #8c8c8c;
-}*/
 
 #input-container{
     margin-bottom: 20px;
@@ -34,7 +17,6 @@ table thead tr th {
 
 
 #input-container{
-    border: 2px solid black;
     padding: 15px;
 }
 

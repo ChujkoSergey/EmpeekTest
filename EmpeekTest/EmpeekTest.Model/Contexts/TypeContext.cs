@@ -72,9 +72,10 @@
             return _context.SaveChanges() != 0;
         }
 
-        public IEnumerable<StatMessage> GetTypeStats()
+        public IEnumerable<StatMessage> GetTypeStats(InfoRequestMessage request)
         {
-            return from type in _context.Type
+            var temp = _context.Type.ToList().Skip((request.Page - 1) * request.Count).Take(request.Count);
+            return from type in temp
                    join items in _context.Items on type.Id equals items.TypeId into result
                    select new StatMessage() { Type = type.Name, Count = result.Count() };
             //return from items in _context.Items
